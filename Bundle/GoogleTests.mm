@@ -178,7 +178,9 @@ static void RunTest(id self, SEL _cmd) {
 + (void)load {
     NSBundle *bundle = [NSBundle bundleForClass:self];
     [[NSNotificationCenter defaultCenter] addObserverForName:NSBundleDidLoadNotification object:bundle queue:nil usingBlock:^(NSNotification *notification) {
-        [GoogleTestCase initialize];
+        if (self == [GoogleTestCase class]) {
+            [self registerTestClasses];
+        }
     }];
 }
 
